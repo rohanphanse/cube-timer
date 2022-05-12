@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset = "utf-8">
+	<meta name = "viewport" content = "width=device-width">
+	<title>Cube Timer</title>
+    <link href = "/images/cube.svg" rel = "icon" type = "image/svg" />
+    
+	<link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href = "https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" />
+
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src = "utility.js"></script>
+    <script src = "graph.js"></script>
+    <script src = "cube.js"></script>
+    <script src = "script.js"></script>
+</head>
+
+<body>
+    <div id = "container">
+        <!-- Scramble and timer -->
+        <div id = "scramble"></div>
+        <div id = "timer">0.00</div>
+        
+        <div class = "row">
+            <!-- Entries -->
+            <div id = "entries-container">
+                <div id = "entries"></div>
+                <div id = "tool-bar">
+                    <div></div>
+                    <div id = "tool-bar-arrow" class = "lnr lnr-chevron-up"></div>
+                </div>
+                <!-- Entry info panel -->
+                <div id = "entry-info">
+                    <div id = "entry-info-content">
+                        <div class = "row">
+                            <div id = "entry-info-time"></div>
+                            <div id = "entry-info-badge">1 / 1</div>
+                        </div>
+                        <div id = "entry-info-scramble"></div>
+                        <div id = "entry-info-add-note">Add Note</div>
+                        <textarea id = "entry-info-note" placeholder = "Write here"></textarea>
+                    </div>
+                </div>
+            </div> <!-- End entry info -->
+
+            <div id = "stats-container">
+                <canvas id = "stats-graph" height = "250" width = "300"></canvas>
+            </div>
+        </div> <!-- End row -->
+    </div>
+</body>
+
+</html>
