@@ -16,6 +16,9 @@ function createGraph(id, data) {
                 x: {
                     type: "linear",
                     position: "bottom"
+                },
+                y: {
+                    beginAtZero: true
                 }
             }
         }

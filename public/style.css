@@ -189,3 +189,8 @@ body {
     padding: 10px;
     font-size: 0.9rem;
 }
+
+#entry-info-date {
+    font-size: 0.8rem;
+    margin-left: 10px;
+}

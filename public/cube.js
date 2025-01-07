@@ -2,7 +2,8 @@ class CubeTimer {
     constructor () {
         // Data
         this.scramble = generateScramble()
-        this.time = 0
+        this.start_time = -1
+        this.time = -1
         this.solves = this.getSavedSolves() || [] 
         this.entry = null
 
@@ -28,6 +29,7 @@ class CubeTimer {
         this.entryInfoBadge = document.getElementById("entry-info-badge")
         this.entryInfoAddNote = document.getElementById("entry-info-add-note")
         this.entryInfoNote = document.getElementById("entry-info-note")
+        this.entryInfoDate = document.getElementById("entry-info-date")
 
         this.averageStat = document.getElementById("average")
         this.averageFiveStat = document.getElementById("average-five")
@@ -129,10 +131,11 @@ class CubeTimer {
 
     startTimer() {
         this.running = true
+        this.start_time = Date.now()
         // Time interval
         const interval = setInterval(() => {
             // Increment time
-            this.time = round(this.time + 0.01, 2)
+            this.time = round((Date.now() - this.start_time) / 1000, 2)
             this.timerText.innerText = formatTime(this.time)
             // Stop timer
             if (!this.running) {
@@ -142,6 +145,7 @@ class CubeTimer {
                     time: this.time,
                     scramble: this.scramble,
                     id: generateID(),
+                    date: Date.now(),
                     note: ""
                 }
                 this.solves.push(entry)
@@ -151,7 +155,6 @@ class CubeTimer {
                 this.updateGraph()
                 this.updateStats()
                 // Reset
-                this.time = 0
                 this.scramble = generateScramble()
                 this.scrambleText.innerText = this.scramble
             }
@@ -280,11 +283,27 @@ class CubeTimer {
                     break
                 }
             }
+            if (this.entry.date) {
+                console.log(new Date(this.entry.date))
+                const date = new Date(this.entry.date)
+                const formattedDate = date.toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                })
+                const formattedTime = date.toLocaleTimeString(undefined, {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                })
+                this.entryInfoDate.innerText = `${formattedDate}, ${formattedTime}`
+            } else {
+                this.entryInfoDate.innerText = ""
+            }
 
             if (this.entry.note || this.entryInfoNote.value) {
                 this.openEntryInfo()
                 this.entryInfoNote.value = this.entry.note
-                console.log(this.entry.note)
             } else {
                 this.entryInfoAddNote.style.display = "flex"
                 this.entryInfoNote.style.display = "none"
@@ -355,7 +374,6 @@ class CubeTimer {
 
     updateStats() {
         const times = this.solves.map((e) => e.time)
-        console.log(times)
         const L = times.length
         if (L > 0) {
             let sum = 0
