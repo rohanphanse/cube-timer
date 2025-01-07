@@ -284,7 +284,6 @@ class CubeTimer {
                 }
             }
             if (this.entry.date) {
-                console.log(new Date(this.entry.date))
                 const date = new Date(this.entry.date)
                 const formattedDate = date.toLocaleDateString(undefined, {
                     year: "numeric",
